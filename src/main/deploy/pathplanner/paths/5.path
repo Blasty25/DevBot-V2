@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 3.6442622950819668,
+        "y": 5.217776639344262
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.5893442622950817,
+        "y": 6.06890368852459
+      },
+      "isLocked": false,
+      "linkedName": "4-hm"
+    },
+    {
+      "anchor": {
+        "x": 1.4864754098360655,
+        "y": 7.159784836065573
+      },
+      "prevControl": {
+        "x": 2.4574795081967213,
+        "y": 6.236731557377048
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "hm-4"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 4.73,
+    "maxAcceleration": 4.253,
+    "maxAngularVelocity": 663.2559,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -51.072456407207724
+  },
+  "reversed": false,
+  "folder": "PathPlanner Auto's",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -62.102728969052265
+  },
+  "useDefaultConstraints": true
+}
