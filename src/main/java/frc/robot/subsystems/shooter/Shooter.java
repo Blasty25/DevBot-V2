@@ -42,4 +42,9 @@ public class Shooter extends SubsystemBase {
   public void runFeeder(double set) {
     feeder.set(set);
   }
+
+  public void stop() {
+    feeder.set(0);
+    shooter.set(0);
+  }
 }

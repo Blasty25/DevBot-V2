@@ -32,6 +32,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.AnalogEncoder;
+import frc.robot.util.LoggedTunableNumber;
 import java.util.Queue;
 import java.util.function.DoubleSupplier;
 
@@ -63,6 +64,15 @@ public class ModuleIOSpark implements ModuleIO {
   // Connection debouncers
   private final Debouncer driveConnectedDebounce = new Debouncer(0.5);
   private final Debouncer turnConnectedDebounce = new Debouncer(0.5);
+
+  // Loggable Tunable Numbers
+  private final LoggedTunableNumber dkP = new LoggedTunableNumber("Drive/PID/driveKP", 0.0);
+  private final LoggedTunableNumber dkI = new LoggedTunableNumber("Drive/PID/driveKI", 0.0);
+  private final LoggedTunableNumber dkD = new LoggedTunableNumber("Drive/PID/driveKD", 0.0);
+
+  private final LoggedTunableNumber tkP = new LoggedTunableNumber("Drive/PID/turnKP", 0.0);
+  private final LoggedTunableNumber tkI = new LoggedTunableNumber("Drive/PID/turnKI", 0.0);
+  private final LoggedTunableNumber tkD = new LoggedTunableNumber("Drive/PID/turnKD", 0.0);
 
   public ModuleIOSpark(int module) {
     zeroRotation =
@@ -125,9 +135,7 @@ public class ModuleIOSpark implements ModuleIO {
     driveConfig
         .closedLoop
         .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-        .pidf(
-            driveKp, 0.0,
-            driveKd, 0.0);
+        .pidf(driveKp, 0.0, driveKd, 0.0);
     driveConfig
         .signals
         .primaryEncoderPositionAlwaysOn(true)
@@ -158,7 +166,7 @@ public class ModuleIOSpark implements ModuleIO {
         .velocityConversionFactor(turnEncoderVelocityFactor);
     turnConfig
         .closedLoop
-        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+        .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
         .positionWrappingEnabled(true)
         .positionWrappingInputRange(turnPIDMinInput, turnPIDMaxInput)
         .pidf(turnKp, 0.0, turnKd, 0.0);
@@ -189,6 +197,7 @@ public class ModuleIOSpark implements ModuleIO {
 
   @Override
   public void updateInputs(ModuleIOInputs inputs) {
+    // Logging Analog Encoders
     inputs.absouluteRotation = analogEncoder.get();
 
     // Update drive inputs

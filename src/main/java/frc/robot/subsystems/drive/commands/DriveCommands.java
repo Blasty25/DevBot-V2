@@ -31,7 +31,6 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
-import frc.robot.subsystems.drive.pathfinding.AutoAimNoVis;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.LinkedList;
@@ -44,14 +43,14 @@ public class DriveCommands {
   private static final double DEADBAND = 0.1;
   private static final double ANGLE_KP = 5.0;
   private static final double ANGLE_KD = 0.4;
-  private static final double ANGLE_MAX_VELOCITY = 8.0;
-  private static final double ANGLE_MAX_ACCELERATION = 20.0;
+  private static final double ANGLE_MAX_VELOCITY = 1.0;
+  private static final double ANGLE_MAX_ACCELERATION = 2.0;
   private static final double FF_START_DELAY = 2.0; // Secs
   private static final double FF_RAMP_RATE = 0.1; // Volts/Sec
   private static final double WHEEL_RADIUS_MAX_VELOCITY = 0.25; // Rad/Sec
   private static final double WHEEL_RADIUS_RAMP_RATE = 0.05; // Rad/Sec^2
 
-  private static final double AUTOALIGN_KP = 9.0;
+  private static final double AUTOALIGN_KP = 0.5;
 
   private DriveCommands() {}
 
@@ -93,8 +92,9 @@ public class DriveCommands {
               Logger.recordOutput("AutoAim/VisionSupplier", visionSupplier.get());
               if (Math.abs(visionSupplier.get().getRadians()) < 1e-6) {
                 Logger.recordOutput("AutoAim/HasVisionTarget", false);
-                new AutoAimNoVis(drive, noVisController, new Pose2d(6.25, 5.90, new Rotation2d()))
-                    .schedule();
+                // new AutoAimNoVis(drive, noVisController, new Pose2d(6.25, 5.90, new
+                // Rotation2d()))
+                //     .schedule();
               }
               Logger.recordOutput("AutoAim/HasVisionTarget", true);
               Translation2d linearVelocity =
